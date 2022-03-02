@@ -1,0 +1,18 @@
+{% extends 'users/base.html' %}
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+   <div class="container d-flex justify-content-center">
+    <div class="card border-success mb-3" style="max-width: 18rem;">
+        <div class="card-header bg-transparent border-success">Register Here</div>
+        <div class="card-body text-success">
+
+          {{form}}
+        </div>
+        <div class="card-footer bg-transparent border-success "> <button class="btn btn-success">Register</button></div>
+      </div>
+   </div>
+   
+   
+</form>
+{% endblock body %}
