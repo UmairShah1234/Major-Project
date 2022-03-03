@@ -1,3 +1,6 @@
+{% extends 'users/base.html' %}
+{% block body %}
+
 <h2>
     {{user.username}}
 </h2>
@@ -5,3 +8,4 @@
     {{user.email}}
 </h2>
 {% comment %} <img src="/pictures/profile_" alt=""> {% endcomment %}
+{% endblock body %}
