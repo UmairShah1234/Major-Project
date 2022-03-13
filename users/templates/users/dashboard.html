@@ -1,39 +1,50 @@
 {% extends 'users/base.html' %}
 {% block body %}
-<div class="container ">
-    <div class="row">
-        <div class="col">
-            <div class="leads">
-                <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
-                    <div class="card-header"><h2>Leads</h2></div>
-                    <div class="card-body">
-                      Something here
+
+
+<div class="row">
+  {% comment %} importing sidebar  {% endcomment %}
+    {% include 'users/sidebar.html' %}
+    
+    {% comment %} main dashboard {% endcomment %}
+          <div class="col">
+              <div class="leads">
+                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+                      <div class="card-header"><h2>Leads</h2></div>
+                      <div class="card-body">
+                        <a href="{% url 'sales:leadform' %}" class='stretched-link'>Add lead <i class="fa fa-plus"></i></a>
+                     
+                      </div>
                     </div>
                   </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="contacts">
-                <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
-                    <div class="card-header"><h2>Contacts</h2></div>
-                    <div class="card-body">
-                      Something here
+          </div>
+          <div class="col">
+              <div class="contacts">
+                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+                      <div class="card-header"><h2>Contacts</h2></div>
+                      <div class="card-body">
+                        Something here
+                      </div>
                     </div>
-                  </div>
-            </div>
-        </div>
-        <div class="col">
+              </div>
+          </div>
+          <div class="col">
             <div class="customers">
-                <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
-                    <div class="card-header"><h2>Customers</h2></div>
-                    <div class="card-body">
-                      Something here
+                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+                      <div class="card-header"><h2>Customers</h2></div>
+                      <div class="card-body">
+                        Something here
+                      </div>
                     </div>
-                  </div>
+              </div>
             </div>
-        </div>
-    </div>
-    
-    
+      </div>
+      
+
 </div>
+      
+    
+
 {% endblock body %}
+
+

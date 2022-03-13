@@ -1,4 +1,3 @@
-from email.mime import base
 from django.urls import path
 from . import views
 from django.contrib.auth import views as authentication_views
@@ -10,9 +9,9 @@ urlpatterns = [
     path('register/',views.register , name='register'),
     path('login/',authentication_views.LoginView.as_view(template_name = 'users/login.html') , name='login' ),
     path('logout/',authentication_views.LogoutView.as_view(template_name = 'users/logout.html'), name='logout' ),
-    path('profile/',views.profile_page, name='profile'),
-    path('profileForm/',views.profile_form, name='profileForm'),
-    path('dashboard/',views.dashboard , name='dashboard')
+    path('users/profile/',views.profile_page, name='profile'),
+    path('users/profileForm/',views.profile_form, name='profileForm'),
+    path('users/dashboard/',views.dashboard , name='dashboard')
 ]
 
 

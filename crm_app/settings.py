@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users',
+    'users.apps.UsersConfig',
     'sales.apps.SalesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -118,7 +118,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+STATICFILES_DIRS = (
+os.path.join(BASE_DIR, 'static'),
+)
 LOGIN_REDIRECT_URL = 'users:dashboard'
 LOGOUT_REDIRECT_URL = 'users:login'
 LOGIN_URL = 'users:login'
