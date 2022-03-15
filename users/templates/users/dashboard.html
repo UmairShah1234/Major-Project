@@ -12,8 +12,18 @@
                   <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
                       <div class="card-header"><h2>Leads</h2></div>
                       <div class="card-body">
-                        <a href="{% url 'sales:leadform' %}" class='stretched-link'>Add lead <i class="fa fa-plus"></i></a>
-                     
+                        <ul>
+                          <li>
+                        <a href="{% url 'sales:leadform' %}" class=''>Add lead <i class="fa fa-plus"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'sales:bulkleads' %}" class=''>Bulk Upload</a>
+                      </li>
+                      <li>
+                        <a href="{% url 'sales:viewleads' %}" class=''>View Leads</a>
+                      </li>
+                      </ul>
                       </div>
                     </div>
                   </div>
@@ -33,7 +43,7 @@
                   <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
                       <div class="card-header"><h2>Customers</h2></div>
                       <div class="card-body">
-                        Something here
+                        <a href="{% url 'sales:viewcustomers' %}" class=''>View Customer</a>
                       </div>
                     </div>
               </div>

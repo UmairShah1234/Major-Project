@@ -4,15 +4,17 @@
 <div class="container border text-center m-2 d-flex justify-content-center flex-column">
 <h2>Add a Lead</h2><hr>
 <form action="" method="post">
-    <label for="" class='form-label '>Company Name : {{form.lead_company}}</label><br>
+    {% csrf_token %}
+    {{form.as_p}}
+    <!-- <label for="" class='form-label '>Company Name : {{form.lead_company}}</label><br>
     <label for="" class='form-label'>Name :{{form.lead_name}}</label><br>
-    <label for="" class='form-label'>Phone Number : {{form.Phone_num}}</label><br>
+    <label for="" class='form-label'>Phone Number : {{form.phone_num}}</label><br>
     <label for=""class='form-label'>Email-Id : {{form.lead_email}}</label><br>
     <label for="" class='form-label'>Address : {{form.address}}</label><br>
     <label for="" class='form-label'>Requirement : {{form.requirement}}</label><br>
     <label for="" class='form-label'>Lead By :{{form.lead_managed}}</label><br>
     <label for=""class='form-label'>Lead created on : {{form.create_date}}</label><br>
-    <label for=""class='form-label'>Last Contacted on : {{form.last_contacted}}</label><br>
+    <label for=""class='form-label'>Last Contacted on : {{form.last_contacted}}</label><br> -->
     <button type='submit' class='btn btn-primary'>Add Lead</button>
 </form>
 
