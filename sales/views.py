@@ -127,3 +127,6 @@ def updateCustomer(request, id):
             form.save()
             return redirect('sales:viewcustomers')
     return render(request, 'sales/updatecustomers.html', {'form': form})
+
+def createTask(request):
+    return render(request , 'sales/createtask.html')

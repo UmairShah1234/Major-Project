@@ -1,5 +1,7 @@
 from datetime import date
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -41,3 +43,10 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.customer_name
+
+class Task(models.Model):
+    lead_name = models.CharField(max_length=200)
+    task_details = models.CharField(max_length=500)
+    created_by = models.OneToOneField(User , on_delete=models.CASCADE)
+    managed_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="lead_user", null=True)
+    managed_date = models.DateField(default=date.today)

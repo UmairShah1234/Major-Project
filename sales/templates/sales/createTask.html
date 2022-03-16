@@ -1,0 +1,36 @@
+{% extends 'users/base.html' %}
+{% block body %}
+{% comment %} importing navbar {% endcomment %}
+{% include 'users/navbar.html' %}
+{% comment %} include sidebar  {% endcomment %}
+{% comment %} {% include 'users/sidebar.html' %} {% endcomment %}
+{% comment %} task element starts here {% endcomment %}
+<div class="container">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary my-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch 
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add a Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="lead_name">Company Name : <input type="text"></label>
+          <label for="lead_details">lead details: <textarea name="" id="" cols="30" rows="10"></textarea></label>
+          <label for="lead_date">date : <input type="date"></label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

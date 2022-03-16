@@ -1,6 +1,8 @@
 {% extends 'users/base.html' %}
 
 {% block body %}
+{% comment %} importing navbar {% endcomment %}
+{% include 'users/navbar.html' %}
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}

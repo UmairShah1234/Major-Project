@@ -1,5 +1,7 @@
 {% extends 'users/base.html' %}
 {% block body %}
+{% comment %} importing navbar {% endcomment %}
+{% include 'users/navbar.html' %}
 {% csrf_token %}
 <div class="container d-flex d-row m-2 justify-content-center">   
     <form action="POST">
