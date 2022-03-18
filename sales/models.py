@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 
 
 class Leads(models.Model):
+    user_name = models.ForeignKey(
+        User, default=None, on_delete=models.CASCADE)
     lead_company = models.CharField(max_length=200)
     lead_name = models.CharField(max_length=200)
     phone_num = models.CharField(max_length=10)
@@ -31,6 +33,7 @@ class Csv(models.Model):
 
 
 class Customer(models.Model):
+
     customer_company = models.CharField(max_length=200)
     customer_name = models.CharField(max_length=200)
     phone_num = models.CharField(max_length=10)
@@ -44,9 +47,11 @@ class Customer(models.Model):
     def __str__(self):
         return self.customer_name
 
+
 class Task(models.Model):
     lead_name = models.CharField(max_length=200)
     task_details = models.CharField(max_length=500)
-    created_by = models.OneToOneField(User , on_delete=models.CASCADE)
-    managed_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="lead_user", null=True)
+    created_by = models.OneToOneField(User, on_delete=models.CASCADE)
+    managed_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="lead_user", null=True)
     managed_date = models.DateField(default=date.today)

@@ -15,9 +15,16 @@ def leadform(request):
     form = LeadForm()
     if request.method == 'POST':
         form = LeadForm(request.POST)
-        if form.is_valid:
-            form.save()
+        if form.is_valid():
+            # form.save()
+            instance = form.save(commit=False)
+            instance.user_name = request.user
+            instance.save()
+            print(request.user)
+            # print(form.cleaned_data)
+
             return redirect('sales:viewleads')
+
     return render(request, 'sales/leadform.html', {'form': form})
 
 
@@ -40,6 +47,7 @@ def upload_file_view(request):
                         # # row = row.replace("", " ")
                         # row = row.split()
                         Leads.objects.create(
+                            user_name=request.user,
                             lead_company=row[0],
                             lead_name=row[1],
                             phone_num=row[2],
@@ -54,6 +62,7 @@ def upload_file_view(request):
                         # print(type(row))
                 obj.activated = True
                 obj.save()
+            return redirect('sales:viewleads')
 
     except Exception as e:
         logging.getLogger('error_logger').error(
@@ -64,7 +73,11 @@ def upload_file_view(request):
 
 
 def viewleads(request):
-    leads = Leads.objects.all()
+    if request.user.is_superuser:
+        leads = Leads.objects.all()
+    else:
+
+        leads = Leads.objects.filter(user_name=request.user)
     return render(request, 'sales/viewleads.html', {'leads': leads})
 
 
@@ -109,7 +122,7 @@ def viewcustomer(request):
     return render(request, 'sales/viewcustomers.html', {'customer': customer})
 
 
-def deleteLead(request, id):
+def deleteCustomer(request, id):
 
     customer = Customer.objects.get(pk=id)
     # print(leads)
@@ -128,5 +141,6 @@ def updateCustomer(request, id):
             return redirect('sales:viewcustomers')
     return render(request, 'sales/updatecustomers.html', {'form': form})
 
+
 def createTask(request):
-    return render(request , 'sales/createtask.html')
+    return render(request, 'sales/createtask.html')

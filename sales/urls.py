@@ -10,7 +10,8 @@ urlpatterns = [
     path('updatelead/<int:id>', views.updateLead, name='updatelead'),
     path('pushlead/<int:id>', views.pushLead, name='pushlead'),
     path('viewcustomers/', views.viewcustomer, name='viewcustomers'),
-    path('deletecustomers/<int:id>/', views.deleteLead, name='deletecustomers'),
+    path('deletecustomers/<int:id>/',
+         views.deleteCustomer, name='deletecustomers'),
     path('updatecustomer/<int:id>', views.updateCustomer, name='updatecustomer'),
-    path('createtask/',views.createTask,name='createtask'),
+    path('createtask/', views.createTask, name='createtask'),
 ]
