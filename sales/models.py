@@ -2,7 +2,6 @@ from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-from matplotlib import widgets
 
 
 # Create your models here.
@@ -35,7 +34,8 @@ class Csv(models.Model):
 
 
 class Customer(models.Model):
-
+    user_name = models.ForeignKey(
+        User, default=None, on_delete=models.CASCADE)
     customer_company = models.CharField(max_length=200)
     customer_name = models.CharField(max_length=200)
     phone_num = models.CharField(max_length=10)
@@ -51,6 +51,7 @@ class Customer(models.Model):
 
 
 class Task(models.Model):
+
     lead_name = models.CharField(max_length=200)
     task_details = models.CharField(max_length=500)
     created_by = models.ForeignKey(

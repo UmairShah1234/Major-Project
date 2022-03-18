@@ -103,6 +103,7 @@ def pushLead(request, id):
     lead = Leads.objects.get(pk=id)
     print(lead)
     Customer.objects.create(
+        user_name=request.user,
         customer_company=lead.lead_company,
         customer_name=lead.lead_name,
         phone_num=lead.phone_num,
@@ -116,7 +117,10 @@ def pushLead(request, id):
 
 
 def viewcustomer(request):
-    customer = Customer.objects.all()
+    if request.user.is_superuser:
+        customer = Customer.objects.all()
+    else:
+        customer = Customer.objects.filter(user_name=request.user)
     return render(request, 'sales/viewcustomers.html', {'customer': customer})
 
 
@@ -152,5 +156,8 @@ def createTask(request):
 def viewtask(request):
     form = TaskForm()
     createTask(request)
-    tasks = Task.objects.all()
+    if request.user.is_superuser:
+        tasks = Task.objects.all()
+    else:
+        tasks = Task.objects.filter(managed_by=request.user)
     return render(request, 'sales/viewtask.html', {'tasks': tasks, 'form': form})
