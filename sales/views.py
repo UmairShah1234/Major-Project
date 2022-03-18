@@ -1,11 +1,9 @@
 import csv
 import logging
-
-
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from .forms import CustomerForm, LeadForm, BulkForm
-from .models import Customer, Leads, Csv
+from .forms import CustomerForm, LeadForm, BulkForm , TaskForm 
+from .models import Customer, Leads, Csv , Task
 
 
 # Create your views here.
@@ -110,11 +108,9 @@ def viewcustomer(request):
 
 
 def deleteLead(request, id):
-
     customer = Customer.objects.get(pk=id)
     # print(leads)
     customer.delete()
-
     return redirect('sales:viewcustomers')
 
 
@@ -129,4 +125,17 @@ def updateCustomer(request, id):
     return render(request, 'sales/updatecustomers.html', {'form': form})
 
 def createTask(request):
-    return render(request , 'sales/createtask.html')
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request , "added a new task")
+    else:
+        form = TaskForm()
+    return render(request , "sales/createtask.html", {'form' : form})
+
+def viewtask(request):
+    form = TaskForm()
+    createTask(request)
+    tasks = Task.objects.all()
+    return render(request , 'sales/viewtask.html' , {'tasks':tasks , 'form':form })

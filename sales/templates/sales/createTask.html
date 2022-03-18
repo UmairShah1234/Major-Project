@@ -1,18 +1,16 @@
 {% extends 'users/base.html' %}
 {% block body %}
-{% comment %} importing navbar {% endcomment %}
-{% include 'users/navbar.html' %}
-{% comment %} include sidebar  {% endcomment %}
-{% comment %} {% include 'users/sidebar.html' %} {% endcomment %}
-{% comment %} task element starts here {% endcomment %}
-<div class="container">
 
+<div class="container">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary my-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch 
+    Add a Task 
   </button>
   
   <!-- Modal -->
+  <div class="container">
+
+ 
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -21,16 +19,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <label for="lead_name">Company Name : <input type="text"></label>
-          <label for="lead_details">lead details: <textarea name="" id="" cols="30" rows="10"></textarea></label>
-          <label for="lead_date">date : <input type="date"></label>
+          <form method="POST">
+            {% csrf_token %}
+            <label for="">Lead Name : {{ form.lead_name}}</label><hr>
+            <label for="">Lead Details : {{ form.task_details}}</label><hr>
+            <label for="">Managed by : {{ form.managed_by}}</label><hr>
+            <label for="">Created by : {{ form.created_by}}</label><hr>
+            <label for="">Lead Date : {{ form.managed_date}}</label><hr>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock body %}

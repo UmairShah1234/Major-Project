@@ -12,5 +12,6 @@ urlpatterns = [
     path('viewcustomers/', views.viewcustomer, name='viewcustomers'),
     path('deletecustomers/<int:id>/', views.deleteLead, name='deletecustomers'),
     path('updatecustomer/<int:id>', views.updateCustomer, name='updatecustomer'),
-    path('createtask/',views.createTask,name='createtask'),
+    path('viewtask/',views.viewtask,name='viewtask'),
+    path('createtask/',views.createTask,name='createatask'),
 ]

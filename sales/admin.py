@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Customer, Leads, Csv  , Task
-
+from .models import Customer, Leads, Csv , Task
 # Register your models here.
 
 admin.site.register(Leads)
