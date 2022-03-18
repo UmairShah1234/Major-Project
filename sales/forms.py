@@ -1,7 +1,8 @@
 
+from attr import field, fields
 from django.forms import ModelForm
 from django import forms
-from .models import Customer, Leads, Csv
+from .models import Customer, Leads, Csv , Task
 
 
 class LeadForm(ModelForm):
@@ -20,4 +21,9 @@ class BulkForm(forms.ModelForm):
 class CustomerForm(ModelForm):
     class Meta:
         model = Customer
+        fields = '__all__'
+
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task
         fields = '__all__'

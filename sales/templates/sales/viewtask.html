@@ -1,0 +1,43 @@
+{% extends 'users/base.html' %}
+{% block body %}
+{% comment %} importing navbar {% endcomment %}
+{% include 'users/navbar.html' %}
+{% include 'sales/createTask.html' %}
+<div class="container">
+  {% comment %} {{ form }} {% endcomment %}
+    <h2>Task Here</h2><hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Task No</th>
+                <th scope="col">Lead Company</th>
+                <th scope="col">What to do</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Managed By</th>
+                <th scope="col">Created Date</th>
+            </tr>
+        </thead>
+        <tbody class='sortable'>
+            {% for task in tasks %}
+          <tr class=' border'>
+            <th scope="row">{{ task.id }}</th>
+            <td>{{ task.lead_name }}</td>
+            <td>{{ task.task_details}}</td>
+            <td>{{ task.created_by}}</td>
+            <td>{{ task.managed_by}}</td>
+            <td>{{ task.managed_date}}</td>
+          </tr>
+          {% endfor %}
+         
+        </tbody>
+      </table>
+
+    
+</div>
+<script>
+  console.log("hello world")
+  $( function() {
+    $( ".sortable" ).sortable();
+  } );
+</script>
+{% endblock body %}
