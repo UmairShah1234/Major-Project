@@ -15,4 +15,5 @@ urlpatterns = [
     path('updatecustomer/<int:id>', views.updateCustomer, name='updatecustomer'),
     path('viewtask/', views.viewtask, name='viewtask'),
     path('createtask/', views.createTask, name='createatask'),
+    path('task/<int:id>/', views.leadTask, name='task'),
 ]

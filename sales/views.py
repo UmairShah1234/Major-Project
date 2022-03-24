@@ -1,8 +1,10 @@
 import csv
 import logging
+from multiprocessing import context
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from .forms import CustomerForm, LeadForm, BulkForm, TaskForm
+from numpy import insert
+from .forms import CustomerForm, LeadForm, BulkForm, Task_Name_Form, TaskForm
 from .models import Customer, Leads, Csv, Task
 
 
@@ -71,12 +73,17 @@ def upload_file_view(request):
 
 
 def viewleads(request):
+
     if request.user.is_superuser:
         leads = Leads.objects.all()
     else:
 
         leads = Leads.objects.filter(user_name=request.user)
-    return render(request, 'sales/viewleads.html', {'leads': leads})
+    context = {
+        'leads': leads,
+
+    }
+    return render(request, 'sales/viewleads.html', context)
 
 
 def deleteLead(request, id):
@@ -93,7 +100,7 @@ def updateLead(request, id):
     form = LeadForm(instance=leads)
     if request.method == 'POST':
         form = LeadForm(request.POST, instance=leads)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             return redirect('sales:viewleads')
     return render(request, 'sales/updateleads.html', {'form': form})
@@ -136,7 +143,7 @@ def updateCustomer(request, id):
     form = CustomerForm(instance=customer)
     if request.method == 'POST':
         form = CustomerForm(request.POST, instance=customer)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             return redirect('sales:viewcustomers')
     return render(request, 'sales/updatecustomers.html', {'form': form})
@@ -161,3 +168,24 @@ def viewtask(request):
     else:
         tasks = Task.objects.filter(managed_by=request.user)
     return render(request, 'sales/viewtask.html', {'tasks': tasks, 'form': form})
+
+# displays the name of the lead
+
+
+def leadTask(request, id):
+    lead = Leads.objects.get(pk=id)
+    print(lead.lead_name)
+    form = Task_Name_Form()
+    if request.method == 'POST':
+        form = Task_Name_Form(request.POST)
+        if form.is_valid():
+            print('valid')
+            instance = form.save(commit=False)
+            instance.lead_name = lead
+            instance.save()
+            return redirect('sales:viewtask')
+
+    context = {'form': form,
+               'lead': lead}
+
+    return render(request, 'sales/task.html', context)

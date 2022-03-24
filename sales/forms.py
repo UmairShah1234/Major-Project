@@ -1,8 +1,9 @@
 
+from pyexpat import model
 from attr import field, fields
 from django.forms import ModelForm
 from django import forms
-from .models import Customer, Leads, Csv , Task
+from .models import Customer, Leads, Csv, Task
 
 
 class LeadForm(ModelForm):
@@ -23,7 +24,16 @@ class CustomerForm(ModelForm):
         model = Customer
         fields = '__all__'
 
+
 class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = '__all__'
+
+# displays the name of the lead
+
+
+class Task_Name_Form(ModelForm):
+    class Meta:
+        model = Task
+        fields = ('task_details', 'created_by', 'managed_by', 'managed_date')

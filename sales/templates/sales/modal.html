@@ -1,0 +1,61 @@
+<!-- <div class="container"> -->
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary btn-sm"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+>
+  Add a Task
+</button>
+
+<!-- Modal -->
+<!-- <div class="container"> -->
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add a Task</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {% csrf_token %}
+          <!-- <label for="">Lead Name : {{ form.lead_name}}</label>
+          <hr />
+          <label for="">Lead Details : {{ form.task_details}}</label>
+          <hr />
+          <label for="">Managed by : {{ form.managed_by}}</label>
+          <hr />
+          <label for="">Created by : {{ form.created_by}}</label>
+          <hr />
+          <label for="">Lead Date : {{ form.managed_date}}</label>
+          <hr /> -->
+          {{form.as_p}}
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->
