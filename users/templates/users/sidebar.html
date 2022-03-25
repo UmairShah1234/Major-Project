@@ -2,19 +2,23 @@
 
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static "users/style.css" %}">
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
     <script src="{% static 'users/index.js' %}"></script>
   
 </head>
 <body>
     <div class="d-flex"> 
-        <div class="w3-sidebar w3-bar-block w3-black d-flex flex-column  left" style="width:70px;" id="sidebar">
-         <button type="button" id='openBtn' class='btn border'  onclick="openNav()" value="open">Open</button>
-         <a href="#" class="p-4 border name"><i class="fa fa-home"></i></a>
-         <a href="#" class="p-4 border name"><i class="fa fa-search"></i></a>
-         <a href="#" class="p-4 border name"><i class="fa fa-envelope"></i></a>
-         <a href="#" class="p-4 border name"><i class="fa fa-globe"></i></a>
-         <a href="#" class="p-4 border name"><i class="fa fa-globe"></i></a>
+        <div class="w3-sidebar w3-bar-block w3-black d-flex flex-column  left" style="width:200px;" id="sidebar">
+         <button type="button" id='openBtn' class='btn border'  onclick="openNav()" value="close"><i class="fa-solid fa-bars"></i></button>
+         <a href="{% url 'users:profile' %}"  class="p-4 border name"><i  class="fa fa-user"><span id="Profile" class="m-2">Profile</span></i></a>
+         <a href="{% url 'users:dashboard' %}"  class="p-4 border name"><i  class="fa fa-home"><span id="dashboard" class="m-2">dashboard</span></i></a>
+         <a href="{% url 'sales:viewleads' %}" class="p-4 border name"><i class="fa fa-id-badge"><span id="Leads" class="m-2">Leads</span></i></a>
+         <a href="{% url 'sales:viewcustomers' %}" class="p-4 border name"><i class="fa fa-address-book"><span id="Customers" class="m-2">Customers</span></i></a>
+         <a href="{% url 'sales:viewtask' %}" class="p-4 border name"><i class="fa fa-bars-progress"><span id="Tasks" class="m-2">Tasks</span></i></a>
+         <a href="{% url 'videocon:lobby' %}" class="p-4 border name"><i class="fa fa-video"><span id="VideoCon" class="m-2">VideoCon</span></i></a>
+         
+         <a href="{% url 'users:logout' %}" class="p-4 border name"><i class="fas fa-right-from-bracket"><span id="LogOut" class="m-2">LogOut</span></i></a>
+         
        </div> 
     
 </body>

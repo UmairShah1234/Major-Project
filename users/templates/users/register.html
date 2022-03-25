@@ -1,20 +1,28 @@
-{% extends 'users/base.html' %}
-{% block body %}
-{% comment %} importing navbar {% endcomment %}
-{% include 'users/navbar.html' %}
-<form method="POST">
-    {% csrf_token %}
-   <div class="container d-flex justify-content-center">
-    <div class="card border-success mb-3" style="max-width: 18rem;">
-        <div class="card-header bg-transparent border-success">Register Here</div>
-        <div class="card-body text-success">
+{% extends 'users/base.html' %} {% block body %} {% comment %} importing navbar
+{% endcomment %} {% include 'users/navbar.html' %} 
+{% if messages %} 
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor%} {%endif %}
 
-          {{form}}
-        </div>
-        <div class="card-footer bg-transparent border-success "> <button class="btn btn-success">Register</button></div>
+<form method="POST">
+  {% csrf_token %}
+  <div class="container d-flex justify-content-center">
+    <div class="card border-success mb-3" style="max-width: 18rem">
+      <div class="card-header bg-transparent border-success">Register Here</div>
+      <div class="card-body text-success">{{form}}</div>
+      <div class="card-footer bg-transparent border-success">
+        <button class="btn btn-success">Register</button>
       </div>
-   </div>
-   
-   
+    </div>
+  </div>
 </form>
 {% endblock body %}

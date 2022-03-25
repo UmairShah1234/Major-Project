@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AbstractUser
 
 # Create your models here.
 
@@ -13,6 +13,8 @@ class Profile(models.Model):
     birth_date = models.DateField(default=None)
     password1 = models.CharField(max_length=10 , default='')
     password2 = models.CharField(max_length=10 , default='')
+    
 
     def __str__(self):
         return self.username
+
