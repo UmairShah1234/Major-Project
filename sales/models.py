@@ -59,4 +59,7 @@ class Task(models.Model):
     managed_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     managed_date = models.DateField(default=date.today)
 
+    def __str__(self):
+        return self.lead_name
+
 # ,widgets=forms.TextInput(attrs={'class':'form-control' , 'placeholder':'Details here'})

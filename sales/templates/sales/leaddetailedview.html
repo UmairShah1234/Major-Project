@@ -1,0 +1,42 @@
+{% extends 'users/base.html' %} 
+{% block body %} 
+{% comment %} importing navbar{% endcomment %}
+ {% include 'users/navbar.html' %}
+{% include 'users/sidebar.html' %}
+
+<div class="container">
+  <h1>Name: {{ lead.lead_name }}</h1>
+
+  <p><strong>Company:</strong> {{ lead.lead_company }}</p> 
+  <p><strong>Phone Number:</strong> {{ lead.phone_num }}</p>
+  <p><strong>Email:</strong> {{ lead.lead_email }}</p>
+  <p><strong>Address:</strong> {{ lead.address}}</p>
+  <p><strong>Requirement:</strong> {{ lead.requirement }}</p>
+  <p><strong>Managed By:</strong> {{ lead.lead_managed }}</p>
+  <p><a
+    href="{% url 'sales:updatelead' lead.id %}"
+    class="btn btn-secondary btn-sm"
+    >update</a
+  >
+
+  <a href="{% url 'sales:delete_lead' lead.id %}" class=""
+    ><button
+      type="button"
+      class="btn btn-danger btn-sm deletebtn"
+      onclick="deleteLead()"
+    >
+      Delete
+    </button></a
+  >
+
+  <a href="{% url 'sales:pushlead' lead.id %}" class="btn btn-primary btn-sm"
+    >Push</a
+  >
+  <a href="{% url 'sales:task' lead.id %}" class="btn btn-primary btn-sm"
+    >Create Task</a
+  ></p>
+
+</div>
+
+
+{% endblock body %}

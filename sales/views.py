@@ -189,3 +189,10 @@ def leadTask(request, id):
                'lead': lead}
 
     return render(request, 'sales/task.html', context)
+
+
+# detailed view
+def leadDetailedView(request,id):
+    lead = Leads.objects.get(pk=id)
+    print(lead.lead_company)
+    return render(request,'sales/leaddetailedview.html',{'lead':lead})

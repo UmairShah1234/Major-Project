@@ -15,18 +15,21 @@
       <th scope="col">Actions</th>
     </tr>
   </thead>
-  <!-- user.user_name.all -->
+  
   <tbody>
     {% for i in leads %}
     <tr class="table-dark">
+      
       <th scope="row">{{i.id}}</th>
+      
+      <td><a href="{% url 'sales:leadDetailedView' i.id %}" class="link-light">{{i.lead_name}}</a></td>
       <td>{{i.lead_company}}</td>
-      <td>{{i.lead_name}}</td>
       <td>{{i.phone_num}}</td>
       <td>{{i.lead_email}}</td>
       <td>{{i.requirement}}</td>
 
       <td>{{i.lead_managed}}</td>
+   
       <td>
         <a
           href="{% url 'sales:updatelead' i.id %}"
@@ -56,5 +59,6 @@
     {% endfor %}
   </tbody>
 </table>
+
 
 {% endblock body %}
