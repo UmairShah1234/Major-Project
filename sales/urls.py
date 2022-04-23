@@ -17,6 +17,9 @@ urlpatterns = [
     path('createtask/', views.createTask, name='createatask'),
     path('task/<int:id>/', views.leadTask, name='task'),
     path('leaddetailedview/<int:id>',views.leadDetailedView,name='leadDetailedView'),
+    path('customerDetailedView/<int:id>',views.customerDetailedView,name='customerDetailedView'),
     path('exportleads',views.exportLeads,name='exportLeads'),
-    path('exportcustomer',views.exportCustomer,name='exportCustomer')
+    path('exportcustomer',views.exportCustomer,name='exportCustomer'),
+    path('leadmail/<int:id>',views.leadMail,name='leadmail'),
+    path('customerMail/<int:id>',views.customerMail,name='customerMail')
 ]

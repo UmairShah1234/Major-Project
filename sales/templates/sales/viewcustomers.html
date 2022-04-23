@@ -26,7 +26,7 @@
         {% for i in customer %}
       <tr class="table-dark">
         <th scope="row">{{i.id}}</th>
-        <td>{{i.customer_company}}</td>
+        <td><a href="{% url 'sales:customerDetailedView' i.id %}" class="link-light">{{i.customer_company}}</a></td>
         <td>{{i.customer_name}}</td>
         <td>{{i.phone_num}}</td>
         <td>{{i.lead_email}}</td>

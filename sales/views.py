@@ -1,13 +1,14 @@
 import csv
 import logging
-from multiprocessing import context
+
 from urllib import response
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from numpy import insert
-from .forms import CustomerForm, LeadForm, BulkForm, Task_Name_Form, TaskForm
-from .models import Customer, Leads, Csv, Task,User
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import CustomerForm, LeadForm, BulkForm, LeadmailForm, Task_Name_Form, TaskForm
+from .models import Customer, LeadMail, Leads, Csv, Task,User
 
 
 # Create your views here.
@@ -35,7 +36,7 @@ def upload_file_view(request):
     try:
 
         if form.is_valid():
-            # for is taking all files instead of csvs(bug)
+            # for is taking all files instead of only csvs(bug)
             form.save()
             form = BulkForm()
             obj = Csv.objects.get(activated=False)
@@ -199,6 +200,11 @@ def leadDetailedView(request,id):
     print(lead.lead_company)
     return render(request,'sales/leaddetailedview.html',{'lead':lead})
 
+def customerDetailedView(request,id):
+    customer = Customer.objects.get(pk=id)
+    print(customer.customer_company)
+    return render(request,'sales/customerdetailedview.html',{'customer':customer})
+
 # export leads data in csv 
 
 def exportLeads(request):
@@ -227,4 +233,62 @@ def exportCustomer(request):
     response['Content-Disposition'] = 'attachment; filename="customers.csv"'
     
     return response
+
+# send mail to leads
+
+def leadMail(request, id):
+    form = LeadmailForm()
+    lead = Leads.objects.get(pk=id)
+    print(lead.lead_email)
     
+    if request.method == 'POST':
+        form = LeadmailForm(request.POST)
+        if form.is_valid():
+            subject = request.POST['subject']
+            message = request.POST['message']
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [lead.lead_email, ]
+
+            send_mail(subject, message, email_from,recipient_list, fail_silently=False)
+
+            LeadMail.objects.create(name=lead.lead_name,
+            email=lead.lead_email,
+            subject=subject,
+            message=message
+            )
+            form.save()
+            return redirect('sales:viewleads')
+    
+    context = {'lead':lead,
+    'form':form}
+        
+    return render(request,'sales/mailform.html',context)
+
+    # send mail to customers
+def customerMail(request, id):
+    form = LeadmailForm()
+    customer = Customer.objects.get(pk=id)
+    print(customer.lead_email)
+    
+    if request.method == 'POST':
+        form = LeadmailForm(request.POST)
+        if form.is_valid():
+            subject = request.POST['subject']
+            message = request.POST['message']
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [customer.lead_email, ]
+
+            send_mail(subject, message, email_from,recipient_list, fail_silently=False)
+
+            LeadMail.objects.create(name=customer.customer_name,
+            email=customer.lead_email,
+            subject=subject,
+            message=message
+            )
+            form.save()
+            return redirect('sales:viewcustomers')
+    
+    context = {'customer':customer,
+    'form':form}
+        
+    return render(request,'sales/mailform.html',context)

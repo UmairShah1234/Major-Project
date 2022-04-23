@@ -1,0 +1,40 @@
+{% extends 'users/base.html' %} 
+{% block body %} 
+{% comment %} importing navbar{% endcomment %}
+ {% include 'users/navbar.html' %}
+{% include 'users/sidebar.html' %}
+
+<div class="container">
+  <h1>Name: {{ customer.customer_name }}</h1>
+
+  <p><strong>Company:</strong> {{ customer.customer_company }}</p> 
+  <p><strong>Phone Number:</strong> {{ customer.phone_num }}</p>
+  <p><strong>Email:</strong> {{ customer.lead_email }}</p>
+  <p><strong>Address:</strong> {{ customer.address}}</p>
+  <p><strong>Requirement:</strong> {{ customer.requirement }}</p>
+  <p><strong>Managed By:</strong> {{ customer.lead_managed }}</p>
+  <p><a
+    href="{% url 'sales:updatecustomer' customer.id %}"
+    class="btn btn-secondary btn-sm"
+    >update</a
+  >
+
+  <a href="{% url 'sales:deletecustomers' customer.id %}" class=""
+    ><button
+      type="button"
+      class="btn btn-danger btn-sm deletebtn"
+      onclick="deleteLead()"
+    >
+      Delete
+    </button></a
+  >
+
+  
+  <a href="{% url 'sales:customerMail' customer.id %}" class="btn btn-primary btn-sm"
+    >Send Mail</a
+  ></p>
+
+</div>
+
+
+{% endblock body %}

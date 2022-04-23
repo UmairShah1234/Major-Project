@@ -1,4 +1,6 @@
 from datetime import date
+import email
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
@@ -63,3 +65,12 @@ class Task(models.Model):
         return self.lead_name
 
 # ,widgets=forms.TextInput(attrs={'class':'form-control' , 'placeholder':'Details here'})
+
+class LeadMail(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=300)
+    message = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.name

@@ -141,4 +141,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'app.crm2@gmail.com'
-EMAIL_HOST_PASSWORD = 'rcoe@1234'
+EMAIL_HOST_PASSWORD = 'hsugrkgluiogoonf'
