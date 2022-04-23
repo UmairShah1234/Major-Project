@@ -7,8 +7,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
 from django.conf import settings
-from .forms import CustomerForm, LeadForm, BulkForm, LeadmailForm, Task_Name_Form, TaskForm
-from .models import Customer, LeadMail, Leads, Csv, Task,User
+from .forms import CustomerForm, LeadForm, BulkForm, LeadmailForm, Task_Name_Form, TaskForm, TeamForm
+from .models import Customer, LeadMail, Leads, Csv, Task, Team, User
 
 
 # Create your views here.
@@ -76,17 +76,31 @@ def upload_file_view(request):
 
 
 def viewleads(request):
+    users = User.objects.all()
 
     if request.user.is_superuser:
         leads = Leads.objects.all()
+
+        if request.method == 'POST':
+
+            id_list = request.POST.getlist('boxes')
+            print(id_list)
+            user1 = request.POST.get('user')
+
+            print(user1)
+            for id in id_list:
+                user2 = User.objects.get(username=user1)
+                lead = Leads.objects.filter(pk=int(id)).update(user_name=user2)
+
+                print(lead, user2)
+
     else:
-
         leads = Leads.objects.filter(user_name=request.user)
-    context = {
-        'leads': leads,
 
-    }
-    return render(request, 'sales/viewleads.html', context)
+    return render(request, 'sales/viewleads.html', {
+        'leads': leads,
+        'users': users
+    })
 
 
 def deleteLead(request, id):
@@ -195,52 +209,59 @@ def leadTask(request, id):
 
 
 # detailed view
-def leadDetailedView(request,id):
+def leadDetailedView(request, id):
     lead = Leads.objects.get(pk=id)
     print(lead.lead_company)
-    return render(request,'sales/leaddetailedview.html',{'lead':lead})
+    return render(request, 'sales/leaddetailedview.html', {'lead': lead})
 
-def customerDetailedView(request,id):
+
+def customerDetailedView(request, id):
     customer = Customer.objects.get(pk=id)
     print(customer.customer_company)
-    return render(request,'sales/customerdetailedview.html',{'customer':customer})
+    return render(request, 'sales/customerdetailedview.html', {'customer': customer})
 
-# export leads data in csv 
+# export leads data in csv
+
 
 def exportLeads(request):
-    
+
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
-    writer.writerow(['company name','lead name','phone','email','address','requirement','lead managed by','create date','last contacted'])
-    
-    for data in Leads.objects.all().values_list('lead_company','lead_name','phone_num','lead_email','address','requirement','lead_managed','create_date','last_contacted'):
+    writer.writerow(['company name', 'lead name', 'phone', 'email', 'address',
+                    'requirement', 'lead managed by', 'create date', 'last contacted'])
+
+    for data in Leads.objects.all().values_list('lead_company', 'lead_name', 'phone_num', 'lead_email', 'address', 'requirement', 'lead_managed', 'create_date', 'last_contacted'):
         writer.writerow(data)
-    
+
     response['Content-Disposition'] = 'attachment; filename="leads.csv"'
-    
+
     return response
 
-# export customer data in csv 
+# export customer data in csv
+
+
 def exportCustomer(request):
-    
+
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
-    writer.writerow(['company name','name','phone','email','address','requirement','customer managed by','create date','last contacted'])
-    
-    for data in Customer.objects.all().values_list('customer_company','customer_name','phone_num','lead_email','address','requirement','lead_managed','create_date','last_contacted'):
+    writer.writerow(['company name', 'name', 'phone', 'email', 'address',
+                    'requirement', 'customer managed by', 'create date', 'last contacted'])
+
+    for data in Customer.objects.all().values_list('customer_company', 'customer_name', 'phone_num', 'lead_email', 'address', 'requirement', 'lead_managed', 'create_date', 'last_contacted'):
         writer.writerow(data)
-    
+
     response['Content-Disposition'] = 'attachment; filename="customers.csv"'
-    
+
     return response
 
 # send mail to leads
+
 
 def leadMail(request, id):
     form = LeadmailForm()
     lead = Leads.objects.get(pk=id)
     print(lead.lead_email)
-    
+
     if request.method == 'POST':
         form = LeadmailForm(request.POST)
         if form.is_valid():
@@ -249,27 +270,30 @@ def leadMail(request, id):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [lead.lead_email, ]
 
-            send_mail(subject, message, email_from,recipient_list, fail_silently=False)
+            send_mail(subject, message, email_from,
+                      recipient_list, fail_silently=False)
 
             LeadMail.objects.create(name=lead.lead_name,
-            email=lead.lead_email,
-            subject=subject,
-            message=message
-            )
+                                    email=lead.lead_email,
+                                    subject=subject,
+                                    message=message
+                                    )
             form.save()
             return redirect('sales:viewleads')
-    
-    context = {'lead':lead,
-    'form':form}
-        
-    return render(request,'sales/mailform.html',context)
+
+    context = {'lead': lead,
+               'form': form}
+
+    return render(request, 'sales/mailform.html', context)
 
     # send mail to customers
+
+
 def customerMail(request, id):
     form = LeadmailForm()
     customer = Customer.objects.get(pk=id)
     print(customer.lead_email)
-    
+
     if request.method == 'POST':
         form = LeadmailForm(request.POST)
         if form.is_valid():
@@ -278,17 +302,52 @@ def customerMail(request, id):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [customer.lead_email, ]
 
-            send_mail(subject, message, email_from,recipient_list, fail_silently=False)
+            send_mail(subject, message, email_from,
+                      recipient_list, fail_silently=False)
 
             LeadMail.objects.create(name=customer.customer_name,
-            email=customer.lead_email,
-            subject=subject,
-            message=message
-            )
+                                    email=customer.lead_email,
+                                    subject=subject,
+                                    message=message
+                                    )
             form.save()
             return redirect('sales:viewcustomers')
-    
-    context = {'customer':customer,
-    'form':form}
-        
-    return render(request,'sales/mailform.html',context)
+
+    context = {'customer': customer,
+               'form': form}
+
+    return render(request, 'sales/mailform.html', context)
+
+# creating teams
+
+
+def createTeam(request):
+    form = TeamForm()
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            print('valid')
+            instance = form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            return redirect('sales:viewTeam')
+
+    return render(request, 'sales/createteams.html', {'form': form})
+
+
+def viewTeam(request):
+    if request.user.is_superuser:
+        team = Team.objects.all()
+    else:
+        team = Team.objects.filter(created_by=request.user)
+    return render(request, 'sales/viewTeam.html', {'team': team})
+
+# transfering leads to different users
+
+# def transferLeads(request):
+#     if request.user.is_superuser:
+#         if request.method == "POST":
+#             id_list = request.POST.get('boxes')
+
+#             print(id_list)
+#     return redirect('sales:viewleads')

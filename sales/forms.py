@@ -5,7 +5,7 @@ from attr import field, fields
 from django.forms import ModelForm
 from django import forms
 from zmq import MORE
-from .models import Customer, LeadMail, Leads, Csv, Task
+from .models import Customer, LeadMail, Leads, Csv, Task, Team
 
 
 class LeadForm(ModelForm):
@@ -45,3 +45,8 @@ class LeadmailForm(ModelForm):
     class Meta:
         model = LeadMail
         fields = ['subject','message']
+
+class TeamForm(ModelForm):
+    class Meta:
+        model = Team
+        fields=['team_name','team_manager','member1','member2']

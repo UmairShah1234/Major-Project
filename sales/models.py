@@ -74,3 +74,14 @@ class LeadMail(models.Model):
 
     def __str__(self):
         return self.name
+
+class Team(models.Model):
+    team_name = models.CharField(max_length=100)
+    created_by = models.ForeignKey(User,default=None,on_delete=models.CASCADE,related_name='creator',null=True)
+    team_manager = models.ForeignKey(User,default=None,on_delete=models.CASCADE,related_name='manager')
+    member1 = models.ForeignKey(User,default=None,on_delete=models.CASCADE,related_name='member1')
+    member2 = models.ForeignKey(User,default=None,on_delete=models.CASCADE,related_name='member2')
+
+    def __str__(self):
+        return self.team_name
+    

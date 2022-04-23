@@ -1,0 +1,44 @@
+{% extends 'users/base.html' %}
+{% block body %}
+{% comment %} importing navbar {% endcomment %}
+{% include 'users/navbar.html' %}
+{% include 'users/sidebar.html' %}
+
+<div class="container">
+  {% comment %} {{ form }} {% endcomment %}
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Team No</th>
+                <th scope="col">Team Name</th>
+                <th scope="col">Team Created by</th>
+                <th scope="col">Team Manager</th>
+                <th scope="col">Team Member 1</th>
+                <th scope="col">Team Member 2</th>
+            </tr>
+        </thead>
+        <tbody class='sortable'>
+            {% for t in team %}
+          <tr class=' border'>
+            <th scope="row">{{ t.id }}</th>
+            <td>{{ t.team_name }}</td>
+            <td>{{ t.created_by}}</td>
+            <td>{{ t.team_manager}}</td>
+            <td>{{ t.member1}}</td>
+            <td>{{ t.member2}}</td>
+          </tr>
+          {% endfor %}
+         
+        </tbody>
+      </table>
+
+    
+</div>
+<script>
+  console.log("hello world")
+  $( function() {
+    $( ".sortable" ).sortable();
+  } );
+</script>
+{% endblock body %}
