@@ -1,11 +1,13 @@
 import csv
 import logging
 from multiprocessing import context
+from urllib import response
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from numpy import insert
 from .forms import CustomerForm, LeadForm, BulkForm, Task_Name_Form, TaskForm
-from .models import Customer, Leads, Csv, Task
+from .models import Customer, Leads, Csv, Task,User
 
 
 # Create your views here.
@@ -196,3 +198,33 @@ def leadDetailedView(request,id):
     lead = Leads.objects.get(pk=id)
     print(lead.lead_company)
     return render(request,'sales/leaddetailedview.html',{'lead':lead})
+
+# export leads data in csv 
+
+def exportLeads(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['company name','lead name','phone','email','address','requirement','lead managed by','create date','last contacted'])
+    
+    for data in Leads.objects.all().values_list('lead_company','lead_name','phone_num','lead_email','address','requirement','lead_managed','create_date','last_contacted'):
+        writer.writerow(data)
+    
+    response['Content-Disposition'] = 'attachment; filename="leads.csv"'
+    
+    return response
+
+# export customer data in csv 
+def exportCustomer(request):
+    
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['company name','name','phone','email','address','requirement','customer managed by','create date','last contacted'])
+    
+    for data in Customer.objects.all().values_list('customer_company','customer_name','phone_num','lead_email','address','requirement','lead_managed','create_date','last_contacted'):
+        writer.writerow(data)
+    
+    response['Content-Disposition'] = 'attachment; filename="customers.csv"'
+    
+    return response
+    

@@ -16,5 +16,7 @@ urlpatterns = [
     path('viewtask/', views.viewtask, name='viewtask'),
     path('createtask/', views.createTask, name='createatask'),
     path('task/<int:id>/', views.leadTask, name='task'),
-    path('leaddetailedview/<int:id>',views.leadDetailedView,name='leadDetailedView')
+    path('leaddetailedview/<int:id>',views.leadDetailedView,name='leadDetailedView'),
+    path('exportleads',views.exportLeads,name='exportLeads'),
+    path('exportcustomer',views.exportCustomer,name='exportCustomer')
 ]
