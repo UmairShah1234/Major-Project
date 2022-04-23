@@ -1,0 +1,45 @@
+{% extends 'users/base.html' %}
+{% block body %}
+{% include 'users/navbar.html' %}
+{% include 'users/sidebar.html' %}
+
+{% comment %} code starts here {% endcomment %}
+<div class='container'>
+    <canvas id="myChart">
+        <script>
+            const labels = [
+             {% for date in dates  %} '{{ date }}  ',  {% endfor %}
+            ];
+          
+            const data = {
+              labels: labels,
+              datasets: [{
+                label: 'Lead on each day',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [ {% for count in count_date  %} '{{ count }}  ',  {% endfor %}],
+              }]
+            };
+          
+            const config = {
+              type: 'line',
+              data: data,
+              options: {}
+            };
+          </script>
+          
+    </canvas>
+</div>
+{% comment %} render part {% endcomment %}
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  
+</script>
+
+
+  
+{% comment %} code ends here   {% endcomment %}
+{% endblock %}
