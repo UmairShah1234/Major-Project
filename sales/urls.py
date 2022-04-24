@@ -21,5 +21,8 @@ urlpatterns = [
     path('exportleads',views.exportLeads,name='exportLeads'),
     path('exportcustomer',views.exportCustomer,name='exportCustomer'),
     path('leadmail/<int:id>',views.leadMail,name='leadmail'),
-    path('customerMail/<int:id>',views.customerMail,name='customerMail')
+    path('customerMail/<int:id>',views.customerMail,name='customerMail'),
+    path('createTeam',views.createTeam,name='createTeam'),
+    path('viewTeam',views.viewTeam,name='viewTeam'),
+    # path('transferLeads',views.transferLeads,name='transferLeads')
 ]

@@ -38,6 +38,7 @@
             <h5 class="card-title">You have 20 contacts</h5>
             <p class="card-text"></p>
           </div>
+<<<<<<< HEAD
         </div>
        </div>
        <div class="col block4 ">
@@ -136,6 +137,45 @@
           
         </script>
         </div> {% endcomment %}
+=======
+          <div class="col">
+            <div class="customers">
+                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+                      <div class="card-header"><h2>Customers</h2></div>
+                      <div class="card-body">
+                        <a href="{% url 'sales:viewcustomers' %}" class=''>View Customer</a>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="col">
+            <div class="tasks">
+                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+                      <div class="card-header"><h2>Task</h2></div>
+                      <div class="card-body">
+                        <ul>
+                          <li><a href="{% url 'sales:createatask' %}" class=''>Create Tasks</a></li>
+                          <li><a href="{% url 'sales:viewtask' %}" class=''>View Tasks</a></li>
+                        </ul>
+                        
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="teams">
+                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+                      <div class="card-header"><h2>Teams</h2></div>
+                      <div class="card-body">
+                        <ul>
+                          <li><a href="{% url 'sales:createTeam' %}" class=''>Create Teams</a></li>
+                          <li><a href="{% url 'sales:viewTeam' %}" class=''>View Teams</a></li>
+                        </ul>
+                        
+                      </div>
+                    </div>
+              </div>
+            </div>
+>>>>>>> teams
       </div>
     </div>
   
