@@ -86,9 +86,12 @@ def profile_form(request):
 from sales.models import Leads , Customer
 @login_required
 def dashboard(request):
+
     datefields = Leads.objects.all()
+    user_names = []
     dates = []
     count_date = []
+    lead_count = []
     temp = []
     
     for date in datefields:
@@ -102,9 +105,9 @@ def dashboard(request):
 
     if request.user.is_superuser:
         leads = Leads.objects.all()
-        user_names = []
+        
         temp1 = []
-        lead_count = []
+        
         for name in leads:
             if name.lead_managed not in user_names:
                 user_names.append(name.lead_managed)
