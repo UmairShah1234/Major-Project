@@ -83,7 +83,42 @@ def profile_form(request):
         form = ProfileForm()
     return render(request, "users/profileForm.html", {'form': form})
 
-
+from sales.models import Leads , Customer
 @login_required
 def dashboard(request):
-    return render(request, 'users/dashboard.html')
+    datefields = Leads.objects.all()
+    dates = []
+    count_date = []
+    temp = []
+    
+    for date in datefields:
+        if date.create_date not in dates:
+            dates.append(date.create_date)
+    for date in datefields:
+        temp.append(date.create_date) 
+    for x in dates:
+        count = temp.count(x)
+        count_date.append(count)
+
+    if request.user.is_superuser:
+        leads = Leads.objects.all()
+        user_names = []
+        temp1 = []
+        lead_count = []
+        for name in leads:
+            if name.lead_managed not in user_names:
+                user_names.append(name.lead_managed)
+        for lead in leads:
+            temp1.append(lead.lead_managed)
+        for x in user_names:
+            count = temp1.count(x)
+            lead_count.append(count)
+        
+    context = {
+        'datefields' : datefields , 
+        'dates' : dates , 
+        'count_date' : count_date , 
+        'user_names' : user_names , 
+        'lead_count' : lead_count , 
+    }
+    return render(request, 'users/dashboard.html' , context)

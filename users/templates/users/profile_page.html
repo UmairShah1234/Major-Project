@@ -4,10 +4,13 @@
 
 <div class="container d-flex justify-content-center align-items-center">
     <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{user}}</h5>
-          <p class="card-text">{{user.email}}</p>
+          <h3 class="card-title">{{user}}</h3>
+          <p class="card-text">Email : {{user.email}}</p>
+          <p class="card-text">Phone Number : {{user.phone_number}}</p>
+          <p class="card-text">Name : {{user.first_name}} {{user.last_name}}</p>
+         
           <a href="{% url 'users:profileForm' %}" class="btn btn-primary">Edit Profile</a>
         </div>
       </div>

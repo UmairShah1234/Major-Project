@@ -10,23 +10,23 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Task No</th>
-                <th scope="col">Lead Company</th>
-                <th scope="col">What to do</th>
-                <th scope="col">Created By</th>
-                <th scope="col">Managed By</th>
-                <th scope="col">Created Date</th>
+                <th scope="col" class='bg-secondary text-light'>Task No</th>
+                <th scope="col" class='bg-secondary text-light'>Lead Company</th>
+                <th scope="col" class='bg-secondary text-light'>What to do</th>
+                <th scope="col" class='bg-secondary text-light'>Created By</th>
+                <th scope="col" class='bg-secondary text-light'>Managed By</th>
+                <th scope="col" class='bg-secondary text-light'>Created Date</th>
             </tr>
         </thead>
         <tbody class='sortable'>
             {% for task in tasks %}
           <tr class=' border'>
-            <th scope="row">{{ task.id }}</th>
-            <td>{{ task.lead_name }}</td>
-            <td>{{ task.task_details}}</td>
-            <td>{{ task.created_by}}</td>
-            <td>{{ task.managed_by}}</td>
-            <td>{{ task.managed_date}}</td>
+            <th scope="row" class='bg-dark text-light'>{{ task.id }}</th>
+            <td class='bg-dark text-light'>{{ task.lead_name }}</td>
+            <td class='bg-dark text-light'>{{ task.task_details}}</td>
+            <td class='bg-dark text-light'>{{ task.created_by}}</td>
+            <td class='bg-dark text-light'>{{ task.managed_by}}</td>
+            <td class='bg-dark text-light'>{{ task.managed_date}}</td>
           </tr>
           {% endfor %}
          
