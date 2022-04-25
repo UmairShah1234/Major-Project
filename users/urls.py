@@ -12,7 +12,16 @@ urlpatterns = [
     path('users/profile/',views.profile_page, name='profile'),
     path('users/profileForm/',views.profile_form, name='profileForm'),
     path('users/dashboard/',views.dashboard , name='dashboard'),
-    path('activate/<username>',views.activate , name='activate')
+    path('activate/<username>',views.activate , name='activate'),
+    path('reset_password/',
+     authentication_views.PasswordResetView.as_view(),
+     name="reset_password"),
+
+    path('reset_password_sent/', 
+        authentication_views.PasswordResetDoneView.as_view(), 
+        name="password_reset_done"),
+    path('reset/uidb64/token',authentication_views.PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
+    path('reset_password_complete/',authentication_views.PasswordResetCompleteView.as_view(),name="password_reset_complete")
 ]
 
 

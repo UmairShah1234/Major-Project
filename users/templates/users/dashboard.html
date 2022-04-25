@@ -12,10 +12,11 @@
    <div class="container m-2 p-2 border">
      <div class="row">
       <div class="col ">
+        
         <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
           <div class="card-header">Leads</div>
           <div class="card-body">
-            <h5 class="card-title">You have 25 lead</h5>
+            <h5 class="card-title">You have {{count_leads}} leads</h5>
             <p class="card-text">
               {% comment %} <a href={% url '' %}>Add a lead</a> {% endcomment %}
             </p>
@@ -26,7 +27,7 @@
         <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
           <div class="card-header">Task</div>
           <div class="card-body">
-            <h5 class="card-title">You have 12 task</h5>
+            <h5 class="card-title">You have {{count_tasks}} tasks</h5>
             <p class="card-text"></p>
           </div>
         </div>
@@ -35,22 +36,24 @@
         <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
           <div class="card-header">Customer</div>
           <div class="card-body">
-            <h5 class="card-title">You have 20 contacts</h5>
+            <h5 class="card-title">You have {{count_cust}} customers</h5>
             <p class="card-text"></p>
           </div>
-<<<<<<< HEAD
         </div>
        </div>
+       {% if user.is_superuser %}
        <div class="col block4 ">
         <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
           <div class="card-header">Team </div>
           <div class="card-body">
-            <h5 class="card-title">Connect with  team</h5>
+            <h5 class="card-title">You have {{count_team}} teams</h5>
             <p class="card-text"></p>
           </div>
         </div>
        </div>
-     </div>
+     {% endif %}
+      </div>
+       
      <div class="container border">
       <div class="row ">
         <div class="col p-0">
@@ -137,45 +140,6 @@
           
         </script>
         </div> {% endcomment %}
-=======
-          <div class="col">
-            <div class="customers">
-                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
-                      <div class="card-header"><h2>Customers</h2></div>
-                      <div class="card-body">
-                        <a href="{% url 'sales:viewcustomers' %}" class=''>View Customer</a>
-                      </div>
-                    </div>
-              </div>
-            </div>
-            <div class="col">
-            <div class="tasks">
-                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
-                      <div class="card-header"><h2>Task</h2></div>
-                      <div class="card-body">
-                        <ul>
-                          <li><a href="{% url 'sales:createatask' %}" class=''>Create Tasks</a></li>
-                          <li><a href="{% url 'sales:viewtask' %}" class=''>View Tasks</a></li>
-                        </ul>
-                        
-                      </div>
-                    </div>
-              </div>
-            </div>
-            <div class="teams">
-                  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
-                      <div class="card-header"><h2>Teams</h2></div>
-                      <div class="card-body">
-                        <ul>
-                          <li><a href="{% url 'sales:createTeam' %}" class=''>Create Teams</a></li>
-                          <li><a href="{% url 'sales:viewTeam' %}" class=''>View Teams</a></li>
-                        </ul>
-                        
-                      </div>
-                    </div>
-              </div>
-            </div>
->>>>>>> teams
       </div>
     </div>
   

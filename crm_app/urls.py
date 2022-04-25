@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('sales.urls')),
     path('', include('videocon.urls')),
     path('', include('salesanalysis.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]

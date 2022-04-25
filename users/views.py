@@ -1,5 +1,4 @@
 
-
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -9,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
+from sales.models import Task,Team
 
 
 # Create your views here.
@@ -87,7 +87,13 @@ from sales.models import Leads , Customer
 @login_required
 def dashboard(request):
 
+
     datefields = Leads.objects.all()
+    count_leads = Leads.objects.count()
+    count_tasks = Task.objects.count()
+    count_cust = Customer.objects.count()
+    count_team = Team.objects.count()
+    print(count_leads,count_tasks,count_cust,count_team)
     user_names = []
     dates = []
     count_date = []
@@ -123,5 +129,9 @@ def dashboard(request):
         'count_date' : count_date , 
         'user_names' : user_names , 
         'lead_count' : lead_count , 
+        'count_leads':count_leads,
+        'count_tasks':count_tasks,
+        'count_cust':count_cust,
+        'count_team':count_team
     }
     return render(request, 'users/dashboard.html' , context)
