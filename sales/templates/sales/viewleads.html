@@ -8,6 +8,7 @@
   <form action="" method="POST">
     {% csrf_token %}
   <a href="{% url 'sales:leadform' %}" class="btn btn-primary">Add a lead</a>
+  <a href="{% url 'sales:bulkleads' %}" class="card-link">Add Bulk leads</a>
   <a href="{% url 'sales:exportLeads' %}" class="btn btn-success">Download</a>
   {% if user.is_superuser %}
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
