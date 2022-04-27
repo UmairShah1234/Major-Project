@@ -1,173 +1,215 @@
-{% extends 'users/base.html' %}
-{% block body %}
-{% comment %} importing navbar {% endcomment %}
-{% include 'users/navbar.html' %}
+{% extends 'users/base.html' %} {% block body %} {% comment %} importing navbar
+{% endcomment %} {% include 'users/navbar.html' %} {% comment %}
+<div class="row">
+  {% endcomment %} {% comment %} importing sidebar {% endcomment %}
+   {% include  'users/sidebar.html' %} {% comment %} main dashboard {% endcomment %}
 
-{% comment %} <div class="row"> {% endcomment %}
-  
-  {% comment %} importing sidebar  {% endcomment %}
-    {% include 'users/sidebar.html' %}
-    
-    {% comment %} main dashboard {% endcomment %}
-   <div class="container m-2 p-2 border">
-     <div class="row">
-      <div class="col ">
-        
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+  <div class="container m-2 p-2 border">
+    <div class="row">
+      <div class="col">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem">
           <div class="card-header">Leads</div>
           <div class="card-body">
+            {% if user.is_superuser %}
+            <h5 class="card-title">You have {{count_leads_super}} leads</h5>
+            {% else %}
             <h5 class="card-title">You have {{count_leads}} leads</h5>
+            {% endif %}
           </div>
-            <ul class="list-group list-group-flush  ">
-              <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:leadform' %}" class="card-link link-dark">Add a lead</a></li>
-              <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:bulkleads' %}" class="card-link link-dark">Add bulk leads</a></li>
-              <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:viewleads' %}" class="card-link link-dark">View Leads</a></li>
-            </ul>
-            {% comment %} <div class="card-text">
-              <a href="{% url 'sales:leadform' %}" class="card-link">Add a lead</a>
-              <a href="{% url 'sales:bulkleads' %}" class="card-link">Add bulk leads</a>
-              <a href="{% url 'sales:viewleads' %}" class="card-link">View Leads</a>
-            </div> {% endcomment %}
-          
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-dark">
+              <a href="{% url 'sales:leadform' %}" class="card-link link-dark"
+                >Add a lead</a
+              >
+            </li>
+            <li class="list-group-item list-group-item-dark">
+              <a href="{% url 'sales:bulkleads' %}" class="card-link link-dark"
+                >Add bulk leads</a
+              >
+            </li>
+            <li class="list-group-item list-group-item-dark">
+              <a href="{% url 'sales:viewleads' %}" class="card-link link-dark"
+                >View Leads</a
+              >
+            </li>
+          </ul>
+          {% comment %}
+          <div class="card-text">
+            <a href="{% url 'sales:leadform' %}" class="card-link"
+              >Add a lead</a
+            >
+            <a href="{% url 'sales:bulkleads' %}" class="card-link"
+              >Add bulk leads</a
+            >
+            <a href="{% url 'sales:viewleads' %}" class="card-link"
+              >View Leads</a
+            >
+          </div>
+          {% endcomment %}
         </div>
       </div>
-       <div class="col block2 ">
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+      <div class="col block2">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem">
           <div class="card-header">Task</div>
           <div class="card-body">
+            {% if user.is_superuser %}
+            <h5 class="card-title">You have {{count_tasks_super}} tasks</h5>
+            {% else %}
             <h5 class="card-title">You have {{count_tasks}} tasks</h5>
+            {% endif %}
+            
             <p class="card-text"></p>
           </div>
-          <ul class="list-group list-group-flush  ">
-            <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:createatask' %}" class="card-link link-dark">Create A task</a></li>
-            <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:viewtask' %}" class="card-link link-dark">View Task</a></li>
-            </ul>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-dark">
+              <a
+                href="{% url 'sales:createatask' %}"
+                class="card-link link-dark"
+                >Create A task</a
+              >
+            </li>
+            <li class="list-group-item list-group-item-dark">
+              <a href="{% url 'sales:viewtask' %}" class="card-link link-dark"
+                >View Task</a
+              >
+            </li>
+          </ul>
         </div>
-       </div>
-       <div class="col block3 ">
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+      </div>
+      <div class="col block3">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem">
           <div class="card-header">Customer</div>
           <div class="card-body">
+            {% if user.is_superuser %}
+            <h5 class="card-title">You have {{count_cust_super}} customers</h5>
+            {% else %}
             <h5 class="card-title">You have {{count_cust}} customers</h5>
+            {% endif %}
+            
             <p class="card-text"></p>
           </div>
-          <ul class="list-group list-group-flush  ">
-            <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:viewcustomers' %}" class="card-link link-dark">View Customers</a></li>
-            
-            </ul>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-dark">
+              <a
+                href="{% url 'sales:viewcustomers' %}"
+                class="card-link link-dark"
+                >View Customers</a
+              >
+            </li>
+          </ul>
         </div>
-       </div>
-       {% if user.is_superuser %}
-       <div class="col block4 ">
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-          <div class="card-header">Team </div>
+      </div>
+      {% if user.is_superuser %}
+      <div class="col block4">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem">
+          <div class="card-header">Team</div>
           <div class="card-body">
             <h5 class="card-title">You have {{count_team}} teams</h5>
             <p class="card-text"></p>
           </div>
-          <ul class="list-group list-group-flush  ">
-            <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:createTeam' %}" class="card-link link-dark">Create A Team</a></li>
-            <li class="list-group-item list-group-item-dark"><a href="{% url 'sales:viewTeam' %}" class="card-link link-dark">View Team</a></li>
-            </ul>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-dark">
+              <a href="{% url 'sales:createTeam' %}" class="card-link link-dark"
+                >Create A Team</a
+              >
+            </li>
+            <li class="list-group-item list-group-item-dark">
+              <a href="{% url 'sales:viewTeam' %}" class="card-link link-dark"
+                >View Team</a
+              >
+            </li>
+          </ul>
         </div>
-       </div>
-     {% endif %}
       </div>
-       
-     <div class="container border">
-      <div class="row ">
+      {% endif %}
+    </div>
+
+    <div class="container border">
+      <div class="row">
         <div class="col p-0">
-          
-            <canvas id="myChart">
-                <script>
-                    const labels = [
-                     {% for date in dates  %} '{{ date }}  ',  {% endfor %}];
-                  
-                    const data = {
-                      labels: labels,
-                      datasets: [{
-                        label: 'Lead on each day',
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: [ {% for count in count_date  %} '{{ count }}  ',  {% endfor %}],
-                      }]
-                    };
-                  
-                    const config = {
-                      type: 'line',
-                      data: data,
-                      options: {}
-                    };
-                  </script>
-                  
-            </canvas>
-        
-        {% comment %} render part {% endcomment %}
-        <script>
+          <canvas id="myChart">
+            <script>
+              const labels = [
+               {% for date in dates  %} '{{ date }}  ',  {% endfor %}];
+
+              const data = {
+                labels: labels,
+                datasets: [{
+                  label: 'Lead on each day',
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: [ {% for count in count_date  %} '{{ count }}  ',  {% endfor %}],
+                }]
+              };
+
+              const config = {
+                type: 'line',
+                data: data,
+                options: {}
+              };
+            </script>
+          </canvas>
+
+          {% comment %} render part {% endcomment %}
+          <script>
             const myChart = new Chart(
-              document.getElementById('myChart'),
+              document.getElementById("myChart"),
               config
             );
-          
-        </script>
+          </script>
         </div>
-        {% comment %} <div class="col">
-            <canvas id="myChart1">
-                <script>
-                    const labels1 = [
-                     {% for user in user_names  %} '{{ user }}  ',  {% endfor %}
-                    ];
-                  
-                    const data = {
-                      labels: labels1,
-                      datasets: [{
-                        label: 'leads generated by each',
-                        backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                        data1: [ {% for count in lead_count  %} '{{ count }}  ',  {% endfor %}],
-                      }]
-                    };
-                  
-                    const config = {
-                      type: 'pie',
-                      data: data1,
-                      options: {}
-                    };
-                  </script>
-                  
-            </canvas>
-   
-        {% comment %} render part {% endcomment %}
-      {% comment "" %}  <script>
+        {% comment %}
+        <div class="col">
+          <canvas id="myChart1">
+            <script>
+              const labels1 = [
+               {% for user in user_names  %} '{{ user }}  ',  {% endfor %}
+              ];
+
+              const data = {
+                labels: labels1,
+                datasets: [{
+                  label: 'leads generated by each',
+                  backgroundColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)'
+                          ],
+                              borderColor: [
+                                  'rgba(255, 99, 132, 1)',
+                                  'rgba(54, 162, 235, 1)',
+                                  'rgba(255, 206, 86, 1)',
+                                  'rgba(75, 192, 192, 1)',
+                                  'rgba(153, 102, 255, 1)',
+                                  'rgba(255, 159, 64, 1)'
+                              ],
+                  data1: [ {% for count in lead_count  %} '{{ count }}  ',  {% endfor %}],
+                }]
+              };
+
+              const config = {
+                type: 'pie',
+                data: data1,
+                options: {}
+              };
+            </script>
+          </canvas>
+
+          {% comment %} render part {% endcomment %} {% comment "" %}
+          <script>
             const myChart1 = new Chart(
-              document.getElementById('myChart1'),
+              document.getElementById("myChart1"),
               config
             );
-          
-        </script>
-        </div> {% endcomment %}
+          </script>
+        </div>
+        {% endcomment %}
       </div>
     </div>
-  
-  
-   </div>
+  </div>
 
-  
-   
-{% endblock body %}
-
-
+  {% endblock body %}
+</div>

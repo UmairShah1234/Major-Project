@@ -5,6 +5,10 @@
 
 {% comment %} code starts here {% endcomment %}
 <div class='container'>
+  <div class='text-center'>
+  <a href='{% url 'salesanalysis:customeranalysis' %}' class="btn btn-primary">Customer Analysis</a>
+  <a href='{% url 'salesanalysis:useranalysis' %}' class="btn btn-primary">User Analysis</a>
+  </div>
     <canvas id="myChart">
         <script>
             const labels = [

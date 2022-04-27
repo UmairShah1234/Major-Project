@@ -89,16 +89,20 @@ def dashboard(request):
 
 
     datefields = Leads.objects.all()
-    count_leads = Leads.objects.count()
-    count_tasks = Task.objects.count()
-    count_cust = Customer.objects.count()
-    count_team = Team.objects.count()
+    count_leads = Leads.objects.filter(user_name=request.user).count()
+    count_leads_super = Leads.objects.count()
+    count_tasks = Task.objects.filter(created_by=request.user).count()
+    count_tasks_super = Task.objects.count()
+    count_cust = Customer.objects.filter(user_name=request.user).count()
+    count_cust_super = Customer.objects.count()
+    count_team = Team.objects.filter(created_by=request.user).count()
     print(count_leads,count_tasks,count_cust,count_team)
     user_names = []
     dates = []
     count_date = []
     lead_count = []
     temp = []
+    
     
     for date in datefields:
         if date.create_date not in dates:
@@ -111,7 +115,7 @@ def dashboard(request):
 
     if request.user.is_superuser:
         leads = Leads.objects.all()
-        
+        # count_leads_super = Leads.objects.count()
         temp1 = []
         
         for name in leads:
@@ -132,6 +136,10 @@ def dashboard(request):
         'count_leads':count_leads,
         'count_tasks':count_tasks,
         'count_cust':count_cust,
-        'count_team':count_team
+        'count_team':count_team,
+        'count_leads_super':count_leads_super,
+        'count_tasks_super':count_tasks_super,
+        'count_cust_super':count_cust_super
+
     }
     return render(request, 'users/dashboard.html' , context)
